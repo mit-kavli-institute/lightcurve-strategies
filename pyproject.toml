@@ -16,4 +16,28 @@ dependencies = [
 dev = [
     "pytest",
     "pytest-hypothesis",
+    "pre-commit",
+    "ruff",
+    "mypy",
+    "bandit",
+    "codespell",
 ]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+
+[tool.codespell]
+skip = "devpython,*.egg-info,.git"
