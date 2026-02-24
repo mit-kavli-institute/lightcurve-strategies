@@ -41,3 +41,4 @@ exclude_dirs = ["tests"]
 
 [tool.codespell]
 skip = "devpython,*.egg-info,.git"
+ignore-words-list = "lightcurve"
