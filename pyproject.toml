@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lightcurve-strategies"
+version = "0.1.0"
+description = "Generate lightcurve timeseries data using Hypothesis strategies and jaxoplanet"
+requires-python = ">=3.12"
+dependencies = [
+    "jaxoplanet",
+    "hypothesis",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-hypothesis",
+]
