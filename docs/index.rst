@@ -1,13 +1,4 @@
-lightcurve-strategies
-=====================
-
-**Hypothesis strategies for property-based testing with jaxoplanet.**
-
-``lightcurve-strategies`` provides `Hypothesis <https://hypothesis.readthedocs.io/>`_
-strategies that generate random but valid
-`jaxoplanet <https://github.com/exoplanet-dev/jaxoplanet>`_ objects —
-transit orbits, Keplerian systems, starry surfaces, and surface systems —
-for property-based testing of exoplanet light-curve code.
+.. include:: ../README.rst
 
 .. toctree::
    :maxdepth: 2
