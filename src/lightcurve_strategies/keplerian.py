@@ -1,4 +1,8 @@
+"""Hypothesis strategies for ``jaxoplanet.orbits.keplerian`` objects."""
+
 from __future__ import annotations
+
+import math
 
 from hypothesis import strategies as st
 from hypothesis.strategies import SearchStrategy
@@ -65,6 +69,11 @@ def bodies(
     enables eccentric orbits (the other gets a default strategy if not
     explicitly supplied).
 
+    Each keyword accepts a Hypothesis strategy.  When ``None``, a sensible
+    default strategy is used.  Strategies may yield ``astropy.units.Quantity``
+    values — they will be converted to plain floats in the expected units
+    (days for time parameters, dimensionless for ratios).
+
     Parameters
     ----------
     period:
@@ -81,9 +90,11 @@ def bodies(
         Strategy for argument of periastron (radians).
         Default: ``None`` (circular).
     mass:
-        Strategy for body mass.  Default: ``None`` (omitted).
+        Strategy for body mass (solar masses, dimensionless in jaxoplanet's
+        internal unit system).  Default: ``None`` (omitted).
     radius:
-        Strategy for body radius.  Default: ``None`` (omitted).
+        Strategy for body radius (solar radii, dimensionless in jaxoplanet's
+        internal unit system).  Default: ``None`` (omitted).
     """
     try:
         import astropy.units as u
@@ -114,9 +125,7 @@ def bodies(
         if eccentricity is None:
             eccentricity = st.floats(0.0, 0.9, allow_nan=False, allow_infinity=False)
         if omega_peri is None:
-            omega_peri = st.floats(
-                0.0, 6.283185307179586, allow_nan=False, allow_infinity=False
-            )
+            omega_peri = st.floats(0.0, math.tau, allow_nan=False, allow_infinity=False)
         kwargs["eccentricity"] = strip_quantity(draw(eccentricity))
         kwargs["omega_peri"] = strip_quantity(draw(omega_peri))
 

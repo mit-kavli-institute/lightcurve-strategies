@@ -1,3 +1,5 @@
+"""Hypothesis strategies for ``jaxoplanet.starry`` objects."""
+
 from __future__ import annotations
 
 import math
@@ -26,6 +28,10 @@ def surfaces(
     Conservative defaults matching the ``Surface()`` constructor defaults.
     The ``y`` (Ylm) parameter is deliberately omitted — use
     ``st.builds(Surface, ...)`` for full control.
+
+    Unlike the keplerian strategies, ``surfaces()`` does not perform
+    ``astropy.units.Quantity`` conversion — all parameters are in radians
+    or dimensionless and are passed through to ``Surface()`` directly.
 
     Parameters
     ----------
