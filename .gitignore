@@ -1,5 +1,7 @@
 .DS_Store
 docs/.DS_Store
+docs/_static
+docs/_templates
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
