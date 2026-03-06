@@ -9,6 +9,7 @@ from hypothesis.strategies import SearchStrategy
 from jaxoplanet.orbits.keplerian import Body, Central
 from jaxoplanet.starry.orbit import SurfaceSystem
 from jaxoplanet.starry.surface import Surface
+from jaxoplanet.starry.ylm import Ylm
 
 from lightcurve_strategies.keplerian import bodies, centrals
 
@@ -17,6 +18,7 @@ from lightcurve_strategies.keplerian import bodies, centrals
 def surfaces(
     draw: st.DrawFn,
     *,
+    y: SearchStrategy[Ylm | None] | None = None,
     inc: SearchStrategy[float] | None = None,
     obl: SearchStrategy[float] | None = None,
     period: SearchStrategy[float] | None = None,
@@ -26,8 +28,6 @@ def surfaces(
     """Generate random ``jaxoplanet.starry.Surface`` instances.
 
     Conservative defaults matching the ``Surface()`` constructor defaults.
-    The ``y`` (Ylm) parameter is deliberately omitted — use
-    ``st.builds(Surface, ...)`` for full control.
 
     Unlike the keplerian strategies, ``surfaces()`` does not perform
     ``astropy.units.Quantity`` conversion — all parameters are in radians
@@ -35,6 +35,10 @@ def surfaces(
 
     Parameters
     ----------
+    y:
+        Strategy for spherical harmonic map.  Default: ``just(None)``
+        (uniform map).  Typically use ``st.just(ylm_instance)`` with a
+        pre-built ``Ylm`` rather than generating randomly.
     inc:
         Strategy for inclination (radians).  Default: ``just(π/2)``.
     obl:
@@ -46,6 +50,8 @@ def surfaces(
     u:
         Strategy for limb-darkening coefficients tuple.  Default: ``just(())``.
     """
+    if y is None:
+        y = st.just(None)
     if inc is None:
         inc = st.just(0.5 * math.pi)
     if obl is None:
@@ -57,6 +63,7 @@ def surfaces(
     if u is None:
         u = st.just(())
 
+    y_val = draw(y)
     inc_val = draw(inc)
     obl_val = draw(obl)
     period_val = draw(period)
@@ -64,6 +71,8 @@ def surfaces(
     u_val = draw(u)
 
     kwargs: dict = {}
+    if y_val is not None:
+        kwargs["y"] = y_val
     if inc_val is not None:
         kwargs["inc"] = inc_val
     if obl_val is not None:

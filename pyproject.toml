@@ -23,6 +23,12 @@ dev = [
     "bandit",
     "codespell",
 ]
+docs = [
+    "sphinx>=7.0",
+    "furo",
+    "sphinx-copybutton",
+    "matplotlib",
+]
 
 [tool.ruff]
 target-version = "py311"
@@ -38,12 +44,12 @@ warn_unused_configs = true
 disallow_untyped_defs = false
 
 [[tool.mypy.overrides]]
-module = ["astropy.*", "jaxoplanet.*", "jax.*", "hypothesis.*", "pytest.*"]
+module = ["astropy.*", "jaxoplanet.*", "jax.*", "hypothesis.*", "numpy.*", "pytest.*"]
 ignore_missing_imports = true
 
 [tool.bandit]
 exclude_dirs = ["tests"]
 
 [tool.codespell]
-skip = "devpython,*.egg-info,.git"
+skip = "devpython,*.egg-info,.git,docs/_build"
 ignore-words-list = "lightcurve"

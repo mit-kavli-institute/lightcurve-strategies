@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import numpy as np
 from hypothesis import given, settings
 from hypothesis import strategies as st
 from jaxoplanet.starry.orbit import SurfaceSystem
 from jaxoplanet.starry.surface import Surface
+from jaxoplanet.starry.ylm import Ylm
 
 from lightcurve_strategies import bodies, surface_systems, surfaces
 
@@ -39,6 +41,26 @@ class TestSurfaceSystemsDefaults:
     @settings(max_examples=30)
     def test_body_surfaces_length_matches_bodies(self, ss):
         assert len(ss.body_surfaces) == len(ss.bodies)
+
+
+class TestSurfacesYlm:
+    """Verify that the ``y`` parameter is accepted and wired through."""
+
+    @given(
+        s=surfaces(
+            y=st.just(Ylm.from_dense(np.array([1.0, 0.01, -0.02, 0.03]))),
+        )
+    )
+    @settings(max_examples=5)
+    def test_y_parameter_accepted(self, s):
+        assert isinstance(s, Surface)
+        assert s.ydeg > 0
+
+    @given(s=surfaces())
+    @settings(max_examples=5)
+    def test_y_none_default(self, s):
+        assert isinstance(s, Surface)
+        assert s.ydeg == 0
 
 
 class TestSurfaceSystemsOverrides:
