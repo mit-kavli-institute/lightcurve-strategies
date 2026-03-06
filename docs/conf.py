@@ -22,7 +22,7 @@ plot_html_show_formats = False
 plot_formats = [("png", 150)]
 
 html_theme = "furo"
-html_static_path = ["_static"]
+html_static_path: list[str] = []
 templates_path = ["_templates"]
 
 autodoc_member_order = "bysource"

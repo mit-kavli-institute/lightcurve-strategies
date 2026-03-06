@@ -96,7 +96,7 @@ def matern32_kernel(amplitude: float, length_scale: float) -> KernelFn:
 
     def _kernel(dt: np.ndarray) -> np.ndarray:
         r = np.sqrt(3.0) * np.abs(dt) / length_scale
-        return amplitude**2 * (1.0 + r) * np.exp(-r)
+        return np.asarray(amplitude**2 * (1.0 + r) * np.exp(-r))
 
     return _kernel
 
@@ -121,7 +121,7 @@ def white_noise(scale: float) -> NoiseFn:
     """
 
     def _noise(rng: np.random.Generator, time: np.ndarray) -> np.ndarray:
-        return rng.normal(0.0, scale, size=time.shape[0])
+        return np.asarray(rng.normal(0.0, scale, size=time.shape[0]))
 
     return _noise
 

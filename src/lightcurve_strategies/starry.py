@@ -20,8 +20,8 @@ def surfaces(
     *,
     y: SearchStrategy[Ylm | None] | None = None,
     inc: SearchStrategy[float] | None = None,
-    obl: SearchStrategy[float] | None = None,
-    period: SearchStrategy[float] | None = None,
+    obl: SearchStrategy[float | None] | None = None,
+    period: SearchStrategy[float | None] | None = None,
     amplitude: SearchStrategy[float] | None = None,
     u: SearchStrategy[tuple] | None = None,
 ) -> Surface:
