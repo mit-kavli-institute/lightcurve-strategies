@@ -69,7 +69,7 @@ Quick start
 
 .. code-block:: bash
 
-   pip install lightcurve-strategies
+   pip install lightcurve-strategies --extra-index-url https://mit-kavli-institute.github.io/MIT-Kavli-PyPi/
 
 .. code-block:: python
 
