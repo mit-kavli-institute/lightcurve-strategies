@@ -133,6 +133,12 @@ Available strategies
 Noise helpers: ``white_noise()``, ``red_noise()``, ``combined_noise()``,
 ``sq_exp_kernel()``, ``matern32_kernel()``.
 
+Documentation
+-------------
+
+Full API reference, worked examples, and interactive plots:
+https://mit-kavli-institute.github.io/lightcurve-strategies/
+
 Requirements
 ------------
 
