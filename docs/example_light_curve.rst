@@ -194,6 +194,7 @@ example, rendered with ``show_surface``:
 
    fig, axes = plt.subplots(1, 3, figsize=(10, 3))
    for ax, theta in zip(axes, [0.0, 1.0, 2.0]):
+       plt.sca(ax)
        show_surface(surface, theta=theta, ax=ax)
        ax.set_title(f"θ = {theta:.1f} rad")
    fig.suptitle("Non-uniform stellar surface (degree-3 Ylm)")
